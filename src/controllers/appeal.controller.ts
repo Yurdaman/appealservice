@@ -123,7 +123,7 @@ export const getAppeals = async (req: Request, res: Response) => {
   }
 };
 
-// 6. Отменить все обращения "в работе"
+// 6. Отменить все обращения
 export const bulkCancelInWork = async (req: Request, res: Response) => {
   try {
     await AppealModel.updateMany(
