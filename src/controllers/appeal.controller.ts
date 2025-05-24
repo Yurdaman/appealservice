@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AppealModel, IAppeal } from "../models/Appeal.model";
+import { AppealModel } from "../models/Appeal.model";
 
 // 1. Создать обращение
 export const createAppeal = async (req: Request, res: Response) => {
@@ -127,12 +127,12 @@ export const getAppeals = async (req: Request, res: Response) => {
 export const bulkCancelInWork = async (req: Request, res: Response) => {
   try {
     await AppealModel.updateMany(
-      { status: { $in: ["новое", "в работе"] } },
+      { status: "в работе" },
       { $set: { status: "отменено", cancellationReason: "Массовая отмена" } }
     );
 
     return res.json({
-      message: 'Все обращения "новое", "в работе" были отменены',
+      message: 'Все обращения "в работе" были отменены',
     });
   } catch (error) {
     return res.status(500).json({ error: "Ошибка при массовой отмене" });
